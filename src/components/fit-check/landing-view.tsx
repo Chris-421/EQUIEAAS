@@ -2,13 +2,11 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { useSearchParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import {
   DiagnosticShell,
   MaterialSymbol,
 } from '@/components/fit-check/diagnostic-chrome';
-import { buildQueryStringFromTracking, getTrackingFromSearchParams } from '@/lib/tracking';
 
 const CREDIBILITY_POINTS = [
   { icon: 'schedule', label: 'Takes 3-4 minutes' },
@@ -16,11 +14,11 @@ const CREDIBILITY_POINTS = [
   { icon: 'analytics', label: 'Tailored advice, not just a score' },
 ];
 
-export function LandingView() {
-  const searchParams = useSearchParams();
-  const fitCheckHref = `/fit-check${buildQueryStringFromTracking(
-    getTrackingFromSearchParams(new URLSearchParams(searchParams.toString())),
-  )}`;
+interface LandingViewProps {
+  fitCheckHref: string;
+}
+
+export function LandingView({ fitCheckHref }: LandingViewProps) {
 
   return (
     <DiagnosticShell mainClassName="justify-center px-6 py-14 md:px-12 md:py-20">
